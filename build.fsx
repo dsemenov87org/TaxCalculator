@@ -1,4 +1,5 @@
 #r "paket:
+open Fake.Core
 nuget Fake.IO.FileSystem
 nuget Fake.DotNet.Cli
 nuget Fake.Core.Target //"
@@ -12,7 +13,9 @@ open Fake.Core
 
 // Properties
 let pwd = Shell.pwd()
-let buildDir = pwd + @"\out\"
+let buildDir = pwd  + @"\out\"
+
+let databaseHost = Environment.environVarOrDefault "PG_HOST" "db"
 
 // Utils
 let publish =
@@ -27,10 +30,14 @@ let publish =
 Target.create "Clean" (fun _ -> Shell.cleanDirs [buildDir])
 
 Target.create "UnitTest" (fun _ ->
-    for path in !! "./test/**/*.UnitTests.csproj" do DotNet.test id path)
+   for path in !! "./test/**/*.UnitTests.csproj" do DotNet.test id path)
 
 Target.create "PublishApp" (fun _ ->
-   for path in !! "./src/**/*.*sproj" do publish path)
+  for path in !! "./src/**/*.*sproj" do publish path)
+
+Target.create "RunMigrations" (fun _ ->
+  for dll in !! (buildDir + "/*.dll") do
+    Async.RunSynchronously (Shell.AsyncExec("dotnet ", dll), 30000) |> ignore)
 
 Target.create "IntegrationalTests" (fun _ ->
    for path in !! "./test/*/IntegrationalTests.csproj" do DotNet.test id path)
@@ -41,7 +48,9 @@ open Fake.Core.TargetOperators
   ==> "UnitTest"
   ==> "PublishApp"
 
-==> "IntegrationalTests"
+"Clean"
+  ==> "RunMigrations"
+  ==> "IntegrationalTests"
 
 // start build
 Target.runOrDefault "PublishApp"

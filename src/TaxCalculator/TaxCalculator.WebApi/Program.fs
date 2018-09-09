@@ -1,6 +1,5 @@
 ﻿open System
 open Microsoft.AspNetCore.Hosting
-open Microsoft.Extensions.Caching.Distributed
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Logging
 
@@ -11,8 +10,14 @@ open FSharp.Control.Tasks.V2
 open TaxCalculator.BusinessLogic
 open TaxCalculator.DataLayer
 open TaxCalculator.BusinessLogic.Common
-open FluentMigrator.Runner
 open FsConfig
+open Microsoft.Extensions.Caching.Distributed
+
+// ---------------------------------
+// Prelude
+// ---------------------------------
+
+let inline dec (f: float) : Decimal = Convert.ToDecimal f
 
 // ---------------------------------
 // Configuration
@@ -20,9 +25,6 @@ open FsConfig
 
 type PostgresConfig =
     {   Host        : string
-        Port        : int
-        User        : string
-        Password    : string
     }
 
 type RedisConfig =
@@ -50,21 +52,6 @@ let config =
         | BadValue (envVarName, value)  -> failwithf "Environment variable %s has invalid value %s" envVarName value
         | NotSupported msg              -> failwith msg
 
-// ---------------------------------
-// Utils
-// ---------------------------------
-
-let inline dec (f: float) : Decimal = Convert.ToDecimal f
-
-let runMigrations (serviceProvider : IServiceProvider) =
-    // Put the database update into a scope to ensure
-    // that all resources will be disposed.
-    use scope = serviceProvider.CreateScope()
-    let runner =
-        scope.ServiceProvider.GetRequiredService<IMigrationRunner>()
-    in
-        runner.MigrateUp()
-
 [<EntryPoint>]
 let main _ =
     WebHostBuilder()
@@ -75,21 +62,11 @@ let main _ =
             // ---------------------------------
             let storageService =
                 TaxStorageService(
-                    TaxDatabaseSettings(config.Pg.Host,
-                                        config.Pg.Port,
-                                        config.Pg.User,
-                                        config.Pg.Password,
-                                        config.TaxCalculator.DbName),
+                    TaxDatabaseSettings(config.Pg.Host, config.TaxCalculator.DbName),
                     app.ApplicationServices.GetService<IDistributedCache>())
 
             let calculatorFactory =
                 TaxCalculatorFactory (storageService, storageService)
-
-            // ---------------------------------
-            // Migrations
-            // ---------------------------------
-
-            runMigrations app.ApplicationServices
 
             // ---------------------------------
             // Error handler
@@ -140,24 +117,6 @@ let main _ =
             app.UseGiraffe webapp)
 
         .ConfigureServices(fun services ->
-            services
-                .AddFluentMigratorCore()
-                .ConfigureRunner(fun rb ->
-                    rb.AddPostgres()
-                        .WithGlobalConnectionString(
-                            sprintf
-                                "server=%s;userid=%s;port=%d;password=%s;database=%s;"
-                                config.Pg.Host
-                                config.Pg.User
-                                config.Pg.Port
-                                config.Pg.Password
-                                config.TaxCalculator.DbName)
-                        .ScanIn(typedefof<TaxStorageService>.Assembly)
-                        .For.Migrations() |> ignore)
-                .AddLogging(fun lb -> lb.AddFluentMigratorConsole() |> ignore)
-                .BuildServiceProvider(false)
-                |> ignore
-
             services.AddGiraffe() |> ignore
             
             services.AddDistributedRedisCache(fun options ->

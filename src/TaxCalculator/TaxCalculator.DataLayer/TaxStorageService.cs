@@ -89,20 +89,14 @@ namespace TaxCalculator.DataLayer
     {
         readonly ConnectionStringSettings _connectionString;
 
-        public TaxDatabaseSettings(string host, int port, string user, string passwd, string dbname)
+        public TaxDatabaseSettings(string host, string dbname)
         {
-            var passwordEntry =
-                string.IsNullOrEmpty(passwd)
-                    ? string.Empty
-                    : $"password={passwd};";
-
             _connectionString =
                 new ConnectionStringSettings
                 {
                     Name = DefaultConfiguration,
                     ProviderName = DefaultDataProvider,
-                    ConnectionString =
-                        $"server={host};userid={user};port={port};{passwordEntry}database={dbname};"
+                    ConnectionString = $"server={host};userid=postgres;port=5432;database={dbname}",
                 };
         }
 
