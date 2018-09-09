@@ -1,0 +1,7 @@
+nunit
+NUnit3TestAdapter
+Microsoft.NET.Test.Sdk
+FluentMigrator
+FluentMigrator.Runner
+Microsoft.Extensions.Caching.Redis
+Microsoft.Extensions.DependencyInjection

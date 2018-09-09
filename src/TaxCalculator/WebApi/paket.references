@@ -1,0 +1,10 @@
+FluentMigrator
+FluentMigrator.Runner
+FSharp.Core
+FsConfig
+Giraffe
+Microsoft.AspNetCore.Hosting
+Microsoft.AspNetCore.Server.Kestrel
+Microsoft.Extensions.Caching.Redis
+Microsoft.Extensions.DependencyInjection
+Microsoft.Extensions.Logging.Console

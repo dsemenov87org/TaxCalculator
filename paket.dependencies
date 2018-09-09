@@ -1,0 +1,19 @@
+source https://www.nuget.org/api/v2
+
+nuget FluentMigrator 3.1.3
+nuget FluentMigrator.Runner 3.1.3
+nuget FsConfig 2.0.2
+nuget FSharp.Core 4.5.2
+nuget Giraffe >= 2.0
+nuget linq2db 2.3.0
+nuget Microsoft.Extensions.Caching.Abstractions 2.1.2
+nuget Microsoft.Extensions.Caching.Redis 2.1.2
+nuget Newtonsoft.Json 11.0.2
+nuget Npgsql 4.0.2
+nuget Microsoft.AspNetCore.Hosting 2.1.1
+nuget Microsoft.AspNetCore.Server.Kestrel 2.1.3
+nuget Microsoft.Extensions.DependencyInjection 2.1.1
+nuget Microsoft.Extensions.Logging.Console 2.1.1
+nuget Microsoft.NET.Test.Sdk 15.7.2
+nuget nunit 3.10.1
+nuget NUnit3TestAdapter 3.10.0
