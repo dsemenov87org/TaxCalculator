@@ -13,7 +13,7 @@ pipeline:
         environment:
             - NUGET_PACKAGES=/drone/nuget_packages
         commands:
-            - ls -l
+            - /usr/local/bin/fake/fake run build.fsx
 
     # rebuild-cache:
     #     image: drillster/drone-volume-cache
