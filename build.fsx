@@ -1,5 +1,5 @@
 #r "paket:
-open Fake.Core
+nuget Fake.Core
 nuget Fake.IO.FileSystem
 nuget Fake.DotNet.Cli
 nuget Fake.Core.Target //"
