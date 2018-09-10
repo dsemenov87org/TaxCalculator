@@ -12,8 +12,8 @@ pipeline:
         environment:
             - NUGET_PACKAGES=/drone/nuget_packages
         commands:
-            - chmod +x build.sh
-            - build.sh PublishApp
+            - chmod +x ./build.sh
+            - ./build.sh PublishApp
 
     rebuild-cache:
         image: drillster/drone-volume-cache
