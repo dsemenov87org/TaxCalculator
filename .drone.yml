@@ -8,12 +8,11 @@ pipeline:
             - /var/lib/drone/cache:/cache
 
     build:
-        image: fsharp:netcore
+        image: itapteka/fake
         environment:
             - NUGET_PACKAGES=/drone/nuget_packages
         commands:
-            - chmod +x ./build.sh
-            - ./build.sh PublishApp
+            - ./build.fsx PublishApp
 
     rebuild-cache:
         image: drillster/drone-volume-cache
@@ -24,14 +23,14 @@ pipeline:
             - /var/lib/drone/cache:/cache
 
     integrational-tests:
-        image: fsharp:netcore
+        image: itapteka/fake
         environment:
             - NUGET_PACKAGES=/drone/nuget_packages
             - PG_HOST="db"
             - REDIS_HOST="cache"
             - TAX_CALCULATOR_DB_NAME="taxcalculator"
         commands:
-            - build.sh IntegrationalTests
+            - ./build.fsx IntegrationalTests
 
     # publish-feature:
     #     image: plugins/docker
