@@ -9,6 +9,7 @@ pipeline:
 
     build:
         image: itapteka/fake
+        pull: true
         environment:
             - NUGET_PACKAGES=/drone/nuget_packages
         commands:
@@ -22,15 +23,15 @@ pipeline:
         volumes:
             - /var/lib/drone/cache:/cache
 
-    integrational-tests:
-        image: itapteka/fake
-        environment:
-            - NUGET_PACKAGES=/drone/nuget_packages
-            - PG_HOST="db"
-            - REDIS_HOST="cache"
-            - TAX_CALCULATOR_DB_NAME="taxcalculator"
-        commands:
-            - ./build.fsx IntegrationalTests
+    # integrational-tests:
+    #     image: itapteka/fake
+    #     environment:
+    #         - NUGET_PACKAGES=/drone/nuget_packages
+    #         - PG_HOST="db"
+    #         - REDIS_HOST="cache"
+    #         - TAX_CALCULATOR_DB_NAME="taxcalculator"
+    #     commands:
+    #         - ./build.fsx IntegrationalTests
 
     # publish-feature:
     #     image: plugins/docker
