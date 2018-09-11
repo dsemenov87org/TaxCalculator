@@ -15,5 +15,9 @@
     <ProjectReference Include="..\TaxCalculator.DataLayer\TaxCalculator.DataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="hostsettings.json" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

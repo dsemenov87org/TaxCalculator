@@ -6,3 +6,12 @@ Microsoft.AspNetCore.Server.Kestrel
 Microsoft.Extensions.Caching.Redis
 Microsoft.Extensions.DependencyInjection
 Microsoft.Extensions.Logging.Console
+Microsoft.Extensions.Configuration.Json
+Serilog.AspNetCore
+Serilog.Settings.Configuration
+Serilog.Sinks.Console
+Serilog.Sinks.RollingFile
+Vostok.Hosting
+Vostok.Hosting.Core
+Vostok.Instrumentation.AspNetCore
+Vostok.Logging.Serilog
