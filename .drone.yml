@@ -11,9 +11,9 @@ pipeline:
         image: itapteka/fake
         # pull: true
         volumes:
-            - /drone/nuget_packages:/drone/nuget_packages
-        environment:
-            - NUGET_PACKAGES=/drone/nuget_packages
+            - /drone/nuget_packages:/home/root/.nuget
+        # environment:
+        #     - NUGET_PACKAGES=/drone/nuget_packages
         commands:
             - /usr/local/bin/fake/fake run ./build.fsx
 
