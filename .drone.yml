@@ -1,27 +1,29 @@
 pipeline:
-    restore-cache:
-        image: drillster/drone-volume-cache
-        restore: true
-        mount:
-            - /drone/nuget_packages
-        volumes:
-            - /var/lib/drone/cache:/cache
+    # restore-cache:
+    #     image: drillster/drone-volume-cache
+    #     restore: true
+    #     mount:
+    #         - /drone/nuget_packages
+    #     volumes:
+    #         - /var/lib/drone/cache:/cache
 
     build:
         image: itapteka/fake
         # pull: true
+        volumes:
+            - /drone/nuget_packages:/drone/nuget_packages
         environment:
             - NUGET_PACKAGES=/drone/nuget_packages
         commands:
             - /usr/local/bin/fake/fake run ./build.fsx
 
-    rebuild-cache:
-        image: drillster/drone-volume-cache
-        rebuild: true
-        mount:
-            - /drone/nuget_packages
-        volumes:
-            - /var/lib/drone/cache:/cache
+    # rebuild-cache:
+    #     image: drillster/drone-volume-cache
+    #     rebuild: true
+    #     mount:
+    #         - /drone/nuget_packages
+    #     volumes:
+    #         - /var/lib/drone/cache:/cache
 
     # integrational-tests:
     #     image: itapteka/fake

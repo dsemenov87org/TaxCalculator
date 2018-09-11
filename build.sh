@@ -1,8 +1,19 @@
-#!/bin/bash
-set -ex;
+#!/usr/bin/env bash
 
-if [ ! "dotnet tool list -g | grep fake-cli " ]; then
-  dotnet tool install fake-cli -g
+set -eu
+set -o pipefail
+
+cd `dirname $0`
+
+FSIARGS="--fsiargs -d:MONO"
+
+mono .paket/paket.bootstrapper.exe
+
+if [ ! -e ~/.config/.mono/certs ]
+then
+  mozroots --import --sync --quiet
 fi
 
-fake run ./build.fsx -t $0
+mono .paket/paket.exe restore
+
+mono packages/tools/FAKE/tools/FAKE.exe "$@" $FSIARGS build.fsx

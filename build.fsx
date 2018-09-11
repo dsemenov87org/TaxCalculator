@@ -15,8 +15,6 @@ open Fake.Core
 let pwd = Shell.pwd()
 let buildDir = pwd  + @"\out\"
 
-let databaseHost = Environment.environVarOrDefault "PG_HOST" "db"
-
 // Utils
 let publish =
   DotNet.publish (fun opts ->
