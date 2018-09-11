@@ -7,13 +7,13 @@ pipeline:
         volumes:
             - /var/lib/drone/cache:/cache
 
-    build:
-        image: itapteka/fake
-        pull: true
-        environment:
-            - NUGET_PACKAGES=/drone/nuget_packages
-        commands:
-            - /usr/local/bin/fake/fake run ./build.fsx
+    # build:
+    #     image: itapteka/fake
+    #     # pull: true
+    #     environment:
+    #         - NUGET_PACKAGES=/drone/nuget_packages
+    #     commands:
+    #         - /usr/local/bin/fake/fake run ./build.fsx
 
     rebuild-cache:
         image: drillster/drone-volume-cache
