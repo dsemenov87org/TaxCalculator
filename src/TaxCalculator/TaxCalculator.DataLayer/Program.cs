@@ -15,8 +15,8 @@ namespace TaxCalculator.DataLayer
 
             await MigrateUp(
                 services,
-                "localhost", // Environment.GetEnvironmentVariable("PG_HOST"),
-                "taxcalculator"// Environment.GetEnvironmentVariable("TAX_CALCULATOR_DB_NAME")
+                Environment.GetEnvironmentVariable("PG_HOST"),
+                Environment.GetEnvironmentVariable("TAX_CALCULATOR_DB_NAME")
                 );
         }
 
