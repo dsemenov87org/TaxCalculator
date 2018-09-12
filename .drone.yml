@@ -7,7 +7,6 @@ pipeline:
         environment:
             - PG_HOST="db"
             - REDIS_HOST="cache"
-            - TAX_CALCULATOR_DB_NAME="taxcalculator"
         commands:
             - dotnet /usr/local/bin/fake/fake.dll -v run build.fsx
 
@@ -31,9 +30,6 @@ pipeline:
 services:
   db:
     image: postgres:alpine
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
 
   cache:
     image: redis:alpine
