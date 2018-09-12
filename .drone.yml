@@ -5,7 +5,7 @@ pipeline:
         volumes:
             - /home/dsemenov87/nuget/:/root/.nuget/packages
         commands:
-            - dotnet test .\test\TaxCalculator\TaxCalculator.BusinessLogic.UnitTests\
+            - dotnet test .\test\TaxCalculator\TaxCalculator.BusinessLogic.UnitTests\BusinessLogic.UnitTests.csproj
 
     integrational-tests:
         image: itapteka/fake
