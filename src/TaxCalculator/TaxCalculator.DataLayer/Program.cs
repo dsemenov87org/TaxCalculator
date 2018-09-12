@@ -22,14 +22,7 @@ namespace TaxCalculator.DataLayer
 
         public static async Task MigrateUp(IServiceCollection services, string host, string dbname)
         {
-            var connectionBuilder =
-                new NpgsqlConnectionStringBuilder();
-            
-            connectionBuilder.Host = host;
-            connectionBuilder.Username = "postgres";
-            connectionBuilder.Port = 5432;
-
-            var connectionStr = connectionBuilder.ToString();
+            var connectionStr = $"server={host};userid=postgres;port=5432";
 
             Console.WriteLine(connectionStr);
 
