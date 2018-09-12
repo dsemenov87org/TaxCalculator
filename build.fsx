@@ -34,7 +34,7 @@ Target.create "PublishApp" (fun _ ->
   for path in !! "./src/**/*.*sproj" do publish path)
 
 Target.create "RunMigrations" (fun _ ->
-  Shell.Exec("dotnet") |> ignore)
+  Shell.Exec("dotnet ./out/TaxCalculator.DataLayer.dll") |> ignore)
 
 Target.create "IntegrationalTests" (fun _ ->
    for path in !! "./test/*/*.IntegrationalTests/*.csproj" do DotNet.test id path)

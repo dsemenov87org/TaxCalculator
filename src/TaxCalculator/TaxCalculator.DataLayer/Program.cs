@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace TaxCalculator.DataLayer
 {
-    class Program
+    public class Program
     {
         public static void Main(string[] args)
         {

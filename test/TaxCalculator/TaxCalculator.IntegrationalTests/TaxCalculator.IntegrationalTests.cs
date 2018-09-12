@@ -17,6 +17,8 @@ namespace IntegrationalTests
         [SetUp]
         public void Init()
         {
+            TaxCalculator.DataLayer.Program.Main(null); // inialize db
+
             var services = new ServiceCollection();
 
             InitServices(services);
