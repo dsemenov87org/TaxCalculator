@@ -31,6 +31,9 @@ pipeline:
 services:
   db:
     image: postgres:alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=test
 
   cache:
     image: redis:alpine
