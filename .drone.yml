@@ -22,7 +22,7 @@ pipeline:
         # when:
         #     branch: feature/*
 
-    deploy-feature-kube:
+    deploy-feature-kube:   
         image: vallard/drone-kube
         template: ./k8s/deployment.yaml
         namespace: $DRONE_BRANCH
