@@ -45,10 +45,8 @@ open Fake.Core.TargetOperators
 "Clean"
   ==> "UnitTest"
   ==> "PublishApp"
-
-"Clean"
   ==> "RunMigrations"
   ==> "IntegrationalTests"
 
 // start build
-Target.runOrDefault "PublishApp"
+Target.runOrDefault "IntegrationalTests"

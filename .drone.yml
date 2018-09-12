@@ -4,21 +4,12 @@ pipeline:
         pull: true
         volumes:
             - /home/dsemenov87/nuget/:/root/.nuget/packages
-        commands:
-            - dotnet /usr/local/bin/fake/fake.dll run build.fsx
-
-    integrational-tests:
-        image: itapteka/fake
-        pull: true
-        volumes:
-            - /home/dsemenov87/nuget/:/root/.nuget/packagest
         environment:
-            - NUGET_PACKAGES=/drone/nuget_packages
             - PG_HOST="db"
             - REDIS_HOST="cache"
             - TAX_CALCULATOR_DB_NAME="taxcalculator"
         commands:
-            - dotnet /usr/local/bin/fake/fake.dll -v run build.fsx -t IntegrationalTests
+            - dotnet /usr/local/bin/fake/fake.dll run build.fsx
 
     # publish-feature:
     #     image: plugins/docker
