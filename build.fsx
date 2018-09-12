@@ -28,16 +28,16 @@ let publish =
 Target.create "Clean" (fun _ -> Shell.cleanDirs [buildDir])
 
 Target.create "UnitTest" (fun _ ->
-   "./test/TaxCalculator/TaxCalculator.BusinessLogic.UnitTests/BusinessLogic.UnitTests.csproj" |> DotNet.test id)
+   for path in !! "./test/*/*.UnitTests/*.csproj" do DotNet.test id path)
 
 Target.create "PublishApp" (fun _ ->
   for path in !! "./src/**/*.*sproj" do publish path)
 
 Target.create "RunMigrations" (fun _ ->
-  Shell.Exec("pwd") |> ignore)
+  Shell.Exec("dotnet") |> ignore)
 
 Target.create "IntegrationalTests" (fun _ ->
-   for path in !! "./test/*/IntegrationalTests.csproj" do DotNet.test id path)
+   for path in !! "./test/*/*.IntegrationalTests/*.csproj" do DotNet.test id path)
 
 // Dependencies
 open Fake.Core.TargetOperators
