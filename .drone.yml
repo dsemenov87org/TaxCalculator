@@ -19,8 +19,8 @@ pipeline:
         password: itapteka
         # volumes:
         #     - /var/run/docker.sock:/var/run/docker.sock
-        when:
-            branch: feature/*
+        # when:
+        #     branch: feature/*
 
     deploy-feature-kube:
         image: vallard/drone-kube
