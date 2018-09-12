@@ -12,10 +12,9 @@ pipeline:
         # pull: true
         volumes:
             - /drone/nuget_packages:/home/root/.nuget
-        # environment:
-        #     - NUGET_PACKAGES=/drone/nuget_packages
+        environment:
+            - NUGET_PACKAGES=/home/root/.nuget/
         commands:
-            - mono ./.paket/paket.bootstrapper.exe
             - mono ./.paket/paket.exe install
             # - ./paket/ /home/root/.nuget/
 

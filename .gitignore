@@ -115,7 +115,6 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 # Paket dependency manager
-.paket/paket.exe
 paket-files/
 /.paket/load/
 paket.local
