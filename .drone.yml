@@ -35,11 +35,5 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  ensure-db:
-    image: postgres:alpine
-    environment:
-      - PGHOST=db
-    command: sudo -u postgres createdb taxcalculator
-
   cache:
     image: redis:alpine
