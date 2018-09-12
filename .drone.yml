@@ -9,24 +9,24 @@ pipeline:
             - REDIS_HOST="cache"
             - TAX_CALCULATOR_DB_NAME="taxcalculator"
         commands:
-            - dotnet /usr/local/bin/fake/fake.dll run build.fsx
+            - dotnet /usr/local/bin/fake/fake.dll -v run build.fsx
 
-    # publish-feature:
-    #     image: plugins/docker
-    #     repo: dsemenov871.fvds.ru/task-service
-    #     tags: [ $DRONE_BRANCH ]
-    #     # volumes:
-    #     #     - /var/run/docker.sock:/var/run/docker.sock
-    #     when:
-    #         branch: feature/*
+    publish-feature:
+        image: plugins/docker
+        repo: itapteka/tax-calculator
+        tags: [ $DRONE_BRANCH ]
+        # volumes:
+        #     - /var/run/docker.sock:/var/run/docker.sock
+        when:
+            branch: feature/*
 
-    # deploy-feature:
-    #     image: rics3n/drone-ansible:2
-    #     playbook: deploy/feature.yml
-    #     volumes:
-    #         - /etc/ansible/staging:/etc/ansible
-    #     when:
-    #         branch: feature/*
+    deploy-feature-kube:
+        image: vallard/drone-kube
+        template: ./k8s/deployment.yaml
+        namespace: $DRONE_BRANCH
+        server: https://95.163.251.232:6443
+        when:
+            branch: feature/*
 
 services:
   db:
