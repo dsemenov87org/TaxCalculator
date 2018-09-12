@@ -1,6 +1,5 @@
 source https://www.nuget.org/api/v2
 source https://www.myget.org/F/vostok/api/v3/index.json
-cache /home/root/.nuget/ versions: current
 
 nuget FAKE
 nuget FAKE.Lib

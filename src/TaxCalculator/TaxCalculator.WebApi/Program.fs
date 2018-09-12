@@ -21,6 +21,7 @@ open Serilog
 open Serilog.Events
 open Vostok.Logging
 open Vostok.Logging.Serilog
+open Vostok.Tracing
 
 // ---------------------------------
 // Prelude
@@ -97,6 +98,8 @@ let configureApplication(app : Microsoft.AspNetCore.Builder.IApplicationBuilder)
     // ---------------------------------
 
     let errorHandler (ex : Exception) _ =
+        let logger = createHostLog()
+        logger.Error ex
         clearResponse >=> setStatusCode 500 >=> (ex |> string |> text) // for debug mode
 
     // ---------------------------------
@@ -117,6 +120,8 @@ let configureApplication(app : Microsoft.AspNetCore.Builder.IApplicationBuilder)
                                     RurMoney (dec input),
                                     RurMoney (dec output),
                                     RurMoney (dec salary)))
+
+                        createHostLog().Debug (sprintf "Calculation result: %A" response)
                         
                         return! (response |> json |> ok) next ctx
                     })

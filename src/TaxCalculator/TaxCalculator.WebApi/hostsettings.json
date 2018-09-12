@@ -1,6 +1,6 @@
 {
     "airlock": {
         "apiKey": "UniversalApiKey",
-        "host": "http://10.254.52.198:6306"
+        "host": "http://62.109.19.116:6306"
     }
 }
