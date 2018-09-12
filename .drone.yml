@@ -3,12 +3,15 @@ pipeline:
         image: itapteka/fake
         pull: true
         volumes:
-            - /drone/nuget_packages:/home/root/.nuget
+            - /home/dsemenov87/nuget/:/home/root/.nuget
         commands:
             -  dotnet /usr/local/bin/fake/fake.dll -v run build.fsx
 
     integrational-tests:
         image: itapteka/fake
+        pull: true
+        volumes:
+            - /home/dsemenov87/nuget/:/home/root/.nuget
         environment:
             - NUGET_PACKAGES=/drone/nuget_packages
             - PG_HOST="db"
