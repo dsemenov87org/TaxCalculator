@@ -16,7 +16,7 @@ pipeline:
         #     - NUGET_PACKAGES=/drone/nuget_packages
         commands:
             - mono ./.paket/paket.bootstrapper.exe
-            - ls -l ./.paket/
+            - mono ./.paket/paket.exe install
             # - ./paket/ /home/root/.nuget/
 
     # rebuild-cache:
