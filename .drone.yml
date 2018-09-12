@@ -36,21 +36,14 @@
 #     image: redis:alpine
 
 pipeline:
-  ping:
-    image: postgres
+  build:
+    image: redis:3.0
     commands:
-      # wait for postgres service to become available
-      - |
-        until psql -U postgres -d test -h database \
-         -c "SELECT 1;"; do sleep 1; done
-      # query the database
-      - |
-        psql -U postgres -d test -h database \
-          -c "SELECT * FROM pg_catalog.pg_tables;"
+      - sleep 5
+      - redis-cli -h redis ping
+      - redis-cli -h redis set HELLO hello
+      - redis-cli -h redis get HELLO
 
 services:
-  database:
-    image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=test
+  redis:
+    image: redis:3.0
