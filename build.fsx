@@ -28,7 +28,7 @@ let publish =
 Target.create "Clean" (fun _ -> Shell.cleanDirs [buildDir])
 
 Target.create "UnitTest" (fun _ ->
-   for path in !! "./test/**/*.UnitTests.csproj" do DotNet.test id path)
+   "./test/TaxCalculator/TaxCalculator.BusinessLogic.UnitTests/BusinessLogic.UnitTests.csproj" |> DotNet.test id)
 
 Target.create "PublishApp" (fun _ ->
   for path in !! "./src/**/*.*sproj" do publish path)
