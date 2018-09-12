@@ -4,7 +4,7 @@
     <ProjectReference Include="..\..\..\src\TaxCalculator\TaxCalculator.DataLayer\TaxCalculator.DataLayer.csproj" />
   </ItemGroup>
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <Import Project="..\..\..\.paket\Paket.Restore.targets" />
