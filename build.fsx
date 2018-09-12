@@ -34,8 +34,7 @@ Target.create "PublishApp" (fun _ ->
   for path in !! "./src/**/*.*sproj" do publish path)
 
 Target.create "RunMigrations" (fun _ ->
-  for dll in !! (buildDir + "/*.DataLayer.dll") do
-    Async.RunSynchronously (Shell.AsyncExec("dotnet ", dll), 30000) |> ignore)
+  Shell.Exec("dotnet ", "/root/out/TaxCalculator.DataLayer.dll") |> ignore)
 
 Target.create "IntegrationalTests" (fun _ ->
    for path in !! "./test/*/IntegrationalTests.csproj" do DotNet.test id path)
