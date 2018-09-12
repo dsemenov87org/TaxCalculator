@@ -39,9 +39,9 @@ Target.create "IntegrationalTests" (fun _ ->
 // Dependencies
 open Fake.Core.TargetOperators
 "Clean"
-  // ==> "UnitTest"
+  ==> "UnitTest"
   ==> "PublishApp"
-  // ==> "IntegrationalTests"
+  ==> "IntegrationalTests"
 
 // start build
-Target.runOrDefault "PublishApp"
+Target.runOrDefault "IntegrationalTests"
