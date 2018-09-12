@@ -1,56 +1,36 @@
-# pipeline:
-#     build:
-#         image: itapteka/fake
-#         pull: true
-#         volumes:
-#             - /home/dsemenov87/nuget/:/root/.nuget/packages
-#         environment:
-#             - PG_HOST=db
-#             - REDIS_HOST=cache
-#             - TAX_CALCULATOR_DB_NAME=taxcalculator
-#         commands:
-#             - dotnet /usr/local/bin/fake/fake.dll -v run build.fsx
-
-#     publish-feature:
-#         image: plugins/docker
-#         repo: itapteka/taxcalculator
-#         tags: [ $DRONE_BRANCH ]
-#         # volumes:
-#         #     - /var/run/docker.sock:/var/run/docker.sock
-#         when:
-#             branch: feature/*
-
-#     deploy-feature-kube:
-#         image: vallard/drone-kube
-#         template: ./k8s/deployment.yaml
-#         namespace: $DRONE_BRANCH
-#         server: https://95.163.251.232:6443
-#         when:
-#             branch: feature/*
-
-# services:
-#   db:
-#     image: postgres:alpine
-
-#   cache:
-#     image: redis:alpine
-
 pipeline:
-  ping:
-    image: postgres
-    commands:
-      # wait for postgres service to become available
-      - |
-        until psql -U postgres -d test -h 0.0.0.0 \
-         -c "SELECT 1;" >/dev/null 2>&1; do sleep 1; done
-      # query the database
-      - |
-        psql -U postgres -d test -h 0.0.0.0 \
-          -c "SELECT * FROM pg_catalog.pg_tables;"
+    build:
+        image: itapteka/fake
+        pull: true
+        volumes:
+            - /home/dsemenov87/nuget/:/root/.nuget/packages
+        environment:
+            - PG_HOST=0.0.0.0
+            - REDIS_HOST=0.0.0.0
+            - TAX_CALCULATOR_DB_NAME=taxcalculator
+        commands:
+            - dotnet /usr/local/bin/fake/fake.dll -v run build.fsx
+
+    publish-feature:
+        image: plugins/docker
+        repo: itapteka/taxcalculator
+        tags: [ $DRONE_BRANCH ]
+        # volumes:
+        #     - /var/run/docker.sock:/var/run/docker.sock
+        when:
+            branch: feature/*
+
+    deploy-feature-kube:
+        image: vallard/drone-kube
+        template: ./k8s/deployment.yaml
+        namespace: $DRONE_BRANCH
+        server: https://95.163.251.232:6443
+        when:
+            branch: feature/*
 
 services:
-  database:
-    image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=test
+  db:
+    image: postgres:alpine
+
+  cache:
+    image: redis:alpine
