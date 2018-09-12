@@ -13,7 +13,7 @@ pipeline:
 
     publish-feature:
         image: plugins/docker
-        repo: itapteka/taxcalculator:
+        repo: itapteka/taxcalculator
         tags: [ ${DRONE_BRANCH} ]
         username: itapteka
         password: itapteka
