@@ -37,6 +37,8 @@ services:
 
   ensure-db:
     image: postgres:alpine
+    environment:
+      - PGHOST=db
     command: sudo -u postgres createdb taxcalculator
 
   cache:
