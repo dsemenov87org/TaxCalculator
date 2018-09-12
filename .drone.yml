@@ -8,6 +8,7 @@ pipeline:
             - PG_HOST="db"
             - REDIS_HOST="cache"
             - TAX_CALCULATOR_DB_NAME="taxcalculator"
+            - FAKE_DETAILED_ERRORS="true"
         commands:
             - dotnet /usr/local/bin/fake/fake.dll -v run build.fsx
 
