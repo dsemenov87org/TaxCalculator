@@ -14,7 +14,8 @@ pipeline:
     publish-feature:
         image: plugins/docker
         repo: itapteka/taxcalculator
-        tags: [ ${DRONE_BRANCH} ]
+        auto_tag: true
+        auto_tag_suffix: ${DRONE_BRANCH}
         username: itapteka
         password: itapteka
         # volumes:
