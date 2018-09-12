@@ -1,6 +1,6 @@
 language: csharp
 
-sudo: false  # use the new container-based Travis infrastructure 
+sudo: true
 
 dotnet: 2.1.300
 
