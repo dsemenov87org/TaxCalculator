@@ -5,7 +5,7 @@ pipeline:
         volumes:
             - /home/dsemenov87/nuget/:/root/.nuget/packages
         environment:
-            - PG_HOST=0.0.0.0
+            - PG_HOST=localhost
             - REDIS_HOST=0.0.0.0
             - TAX_CALCULATOR_DB_NAME=taxcalculator
         commands:
