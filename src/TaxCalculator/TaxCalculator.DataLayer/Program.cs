@@ -29,7 +29,11 @@ namespace TaxCalculator.DataLayer
             connectionBuilder.Username = "postgres";
             connectionBuilder.Port = 5432;
 
-            using (var conn = new NpgsqlConnection(connectionBuilder.ToString()))
+            var connectionStr = connectionBuilder.ToString();
+
+            Console.WriteLine(connectionStr);
+
+            using (var conn = new NpgsqlConnection(connectionStr))
             using (var cmd = conn.CreateCommand())
             {
                 await conn.OpenAsync();
