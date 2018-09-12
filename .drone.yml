@@ -42,7 +42,7 @@ pipeline:
       # wait for postgres service to become available
       - |
         until psql -U postgres -d test -h database \
-         -c "SELECT 1;" >/dev/null 2>&1; do sleep 1; done
+         -c "SELECT 1;" do sleep 1; done
       # query the database
       - |
         psql -U postgres -d test -h database \
