@@ -13,7 +13,7 @@ open Fake.Core
 
 // Properties
 let pwd = Shell.pwd()
-let buildDir = pwd  + @"\out\"
+let buildDir = pwd  + @"/out/"
 
 // Utils
 let publish =
