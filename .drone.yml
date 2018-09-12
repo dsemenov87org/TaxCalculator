@@ -1,40 +1,21 @@
 pipeline:
-    # restore-cache:
-    #     image: drillster/drone-volume-cache
-    #     restore: true
-    #     mount:
-    #         - /drone/nuget_packages
-    #     volumes:
-    #         - /var/lib/drone/cache:/cache
-
     build:
         image: itapteka/fake
-        # pull: true
+        pull: true
         volumes:
             - /drone/nuget_packages:/home/root/.nuget
-        environment:
-            - NUGET_PACKAGES=/home/root/.nuget/
         commands:
-            - mono ./.paket/paket.exe install
-            # - ./paket/ /home/root/.nuget/
+            -  dotnet /usr/local/bin/fake/fake.dll -v run build.fsx
 
-    # rebuild-cache:
-    #     image: drillster/drone-volume-cache
-    #     rebuild: true
-    #     mount:
-    #         - /drone/nuget_packages
-    #     volumes:
-    #         - /var/lib/drone/cache:/cache
-
-    # integrational-tests:
-    #     image: itapteka/fake
-    #     environment:
-    #         - NUGET_PACKAGES=/drone/nuget_packages
-    #         - PG_HOST="db"
-    #         - REDIS_HOST="cache"
-    #         - TAX_CALCULATOR_DB_NAME="taxcalculator"
-    #     commands:
-    #         - ./build.fsx IntegrationalTests
+    integrational-tests:
+        image: itapteka/fake
+        environment:
+            - NUGET_PACKAGES=/drone/nuget_packages
+            - PG_HOST="db"
+            - REDIS_HOST="cache"
+            - TAX_CALCULATOR_DB_NAME="taxcalculator"
+        commands:
+            - dotnet /usr/local/bin/fake/fake.dll -v run build.fsx -t IntegrationalTests
 
     # publish-feature:
     #     image: plugins/docker
@@ -53,12 +34,12 @@ pipeline:
     #     when:
     #         branch: feature/*
 
-# services:
-#   db:
-#     image: postgres:alpine
-#     environment:
-#       - POSTGRES_USER=postgres
-#       - POSTGRES_PASSWORD=postgres
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
-#   cache:
-#     image: redis:alpine
+  cache:
+    image: redis:alpine
