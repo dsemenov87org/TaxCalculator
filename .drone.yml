@@ -40,9 +40,9 @@ pipeline:
     image: redis:3.0
     commands:
       - sleep 5
-      - redis-cli -h redis ping
-      - redis-cli -h redis set HELLO hello
-      - redis-cli -h redis get HELLO
+      - redis-cli -h 0.0.0.0 ping
+      - redis-cli -h 0.0.0.0 set HELLO hello
+      - redis-cli -h 0.0.0.0 get HELLO
 
 services:
   redis:
