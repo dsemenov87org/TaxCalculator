@@ -7,12 +7,13 @@ pipeline:
         environment:
             - PG_HOST="db"
             - REDIS_HOST="cache"
+            - TAX_CALCULATOR_DB_NAME="taxcalculator"
         commands:
             - dotnet /usr/local/bin/fake/fake.dll -v run build.fsx
 
     publish-feature:
         image: plugins/docker
-        repo: itapteka/tax-calculator
+        repo: itapteka/taxcalculator
         tags: [ $DRONE_BRANCH ]
         # volumes:
         #     - /var/run/docker.sock:/var/run/docker.sock
