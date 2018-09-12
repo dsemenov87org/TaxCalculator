@@ -5,4 +5,4 @@ sudo: true
 dotnet: 2.1.300
 
 script:
-  - chmod +x ./build.fsx && ./build.sh
+  - sudo chmod +x ./build.fsx && sudo ./build.sh
