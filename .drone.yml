@@ -30,9 +30,9 @@ pipeline:
         when:
             branch: feature/*
 
-# services:
-#   db:
-#     image: postgres:alpine
+services:
+  db:
+    image: postgres:alpine
 
-#   cache:
-#     image: redis:alpine
+  cache:
+    image: redis:alpine
