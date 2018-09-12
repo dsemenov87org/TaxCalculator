@@ -9,15 +9,15 @@ namespace TaxCalculator.DataLayer
 {
     class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             var services = new ServiceCollection();
 
-            await MigrateUp(
+            MigrateUp(
                 services,
                 Environment.GetEnvironmentVariable("PG_HOST"),
                 Environment.GetEnvironmentVariable("TAX_CALCULATOR_DB_NAME")
-                );
+                ).Wait();
         }
 
         public static async Task MigrateUp(IServiceCollection services, string host, string dbname)
